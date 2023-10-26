@@ -13,26 +13,26 @@ class PolygoneScreen extends StatefulWidget {
 }
 
 class _PolygoneScreenState extends State<PolygoneScreen> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
 
-  CameraPosition _kGooglePlex = CameraPosition(
+  final CameraPosition _kGooglePlex = const CameraPosition(
     target: LatLng(8.984744630984105, -79.51568584889174),
     zoom: 14,
   );
   final Set<Marker> _markers = {};
-  Set<Polygon> _polygone = HashSet<Polygon>();
+  final Set<Polygon> _polygone = HashSet<Polygon>();
   final polygons = <Polygon>[];
 
-  List<LatLng> _mark = [];
+  final List<LatLng> _mark = [];
   List<LatLng> points = [
-    LatLng(9.000471, -79.495544),
-    LatLng(8.999406, -79.495831),
-    LatLng(8.998838, -79.494680),
+    const LatLng(9.000471, -79.495544),
+    const LatLng(8.999406, -79.495831),
+    const LatLng(8.998838, -79.494680),
   ];
 
   void _setPolygone() {
     _polygone.add(Polygon(
-      polygonId: PolygonId('1'),
+      polygonId: const PolygonId('1'),
       points: _mark,
       strokeColor: Colors.deepOrange,
       strokeWidth: 1,
@@ -60,7 +60,7 @@ class _PolygoneScreenState extends State<PolygoneScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Polygone'),
+        title: const Text('Polygone'),
       ),
       floatingActionButton: FloatingActionButton.large(
         onPressed: _setPolygone,

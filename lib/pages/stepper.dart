@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class StepperDemo extends StatefulWidget {
+  const StepperDemo({super.key});
+
   @override
   _StepperDemoState createState() => _StepperDemoState();
 }
@@ -14,7 +16,7 @@ class _StepperDemoState extends State<StepperDemo> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text('Flutter Stepper Demo'),
+          title: const Text('Flutter Stepper Demo'),
           centerTitle: true,
         ),
         body: Container(
@@ -23,23 +25,23 @@ class _StepperDemoState extends State<StepperDemo> {
               Expanded(
                 child: Stepper(
                   type: StepperType.horizontal,
-                  physics: ScrollPhysics(),
+                  physics: const ScrollPhysics(),
                   currentStep: _currentStep,
                   onStepTapped: (step) => tapped(step),
                   onStepContinue: continued,
                   onStepCancel: cancel,
                   steps: <Step>[
                     Step(
-                      title: new Text('Area of Interest'),
-                      subtitle: Text('Polygonal Area'),
+                      title: const Text('Area of Interest'),
+                      subtitle: const Text('Polygonal Area'),
                       content: Column(
                         children: <Widget>[
                           TextFormField(
                             decoration:
-                                InputDecoration(labelText: 'Email Address'),
+                                const InputDecoration(labelText: 'Email Address'),
                           ),
                           TextFormField(
-                            decoration: InputDecoration(labelText: 'Password'),
+                            decoration: const InputDecoration(labelText: 'Password'),
                           ),
                         ],
                       ),
@@ -49,16 +51,16 @@ class _StepperDemoState extends State<StepperDemo> {
                           : StepState.disabled,
                     ),
                     Step(
-                      title: new Text('Analysis Result'),
-                      subtitle: Text('Vegetation Health Index'),
+                      title: const Text('Analysis Result'),
+                      subtitle: const Text('Vegetation Health Index'),
                       content: Column(
                         children: <Widget>[
                           TextFormField(
                             decoration:
-                                InputDecoration(labelText: 'Home Address'),
+                                const InputDecoration(labelText: 'Home Address'),
                           ),
                           TextFormField(
-                            decoration: InputDecoration(labelText: 'Postcode'),
+                            decoration: const InputDecoration(labelText: 'Postcode'),
                           ),
                         ],
                       ),
@@ -68,12 +70,12 @@ class _StepperDemoState extends State<StepperDemo> {
                           : StepState.disabled,
                     ),
                     Step(
-                      title: new Text('Are Identity'),
+                      title: const Text('Are Identity'),
                       content: Column(
                         children: <Widget>[
                           TextFormField(
                             decoration:
-                                InputDecoration(labelText: 'Mobile Number'),
+                                const InputDecoration(labelText: 'Mobile Number'),
                           ),
                         ],
                       ),

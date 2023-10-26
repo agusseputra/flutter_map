@@ -9,6 +9,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../widgets/constants.dart';
 
 class LocationSelectionScreen extends StatefulWidget {
+  const LocationSelectionScreen({super.key});
+
   // final double initialLatitude;
   // final double initialLongitude;
 
@@ -41,7 +43,7 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
   @override
   void initState() {
     super.initState();
-    selectedLocation = LatLng(9.000471, -79.495544);
+    selectedLocation = const LatLng(9.000471, -79.495544);
   }
 
   void _onMapCreated(GoogleMapController controller) {

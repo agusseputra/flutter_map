@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
@@ -20,12 +19,12 @@ class _SlidingUPState extends State<SlidingUP> {
   final double _initFabHeight = 120.0;
   double _fabHeight = 0;
   double _panelHeightOpen = 0;
-  double _panelHeightClosed = 95.0;
+  final double _panelHeightClosed = 95.0;
   late String latitude;
   late String longitude;
   late PolyEditor polyEditor;
-  late LatLng _current = LatLng(13.535932, 100.939911);
-  late LatLng _selected = LatLng(13.535932, 100.939911);
+  late LatLng _current = const LatLng(13.535932, 100.939911);
+  late LatLng _selected = const LatLng(13.535932, 100.939911);
   final polygons = <Polygon>[];
   final testPolygon = Polygon(
     color: Colors.deepOrange,
@@ -34,7 +33,7 @@ class _SlidingUPState extends State<SlidingUP> {
   );
   int _currentStep = 0;
   StepperType stepperType = StepperType.vertical;
-  PanelController _pc = new PanelController();
+  final PanelController _pc = PanelController();
   @override
   void initState() {
     super.initState();
@@ -161,13 +160,13 @@ class _SlidingUPState extends State<SlidingUP> {
             body: _body(),
             panelBuilder: (sc) => _panel(sc),
             collapsed: Container(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               color: Theme.of(context).primaryColorLight,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16, left: 8.0),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 16, left: 8.0),
                     child: Column(
                       children: [
                         Text(
@@ -185,7 +184,7 @@ class _SlidingUPState extends State<SlidingUP> {
                         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                         child: ElevatedButton(
                             onPressed: () {},
-                            child: Row(
+                            child: const Row(
                               children: [
                                 Icon(Icons.clear),
                                 Text("Clear"),
@@ -198,7 +197,7 @@ class _SlidingUPState extends State<SlidingUP> {
                             onPressed: () {
                               _pc.open();
                             },
-                            child: Row(
+                            child: const Row(
                               children: [Icon(Icons.forward), Text("Next")],
                             )),
                       )
@@ -208,7 +207,7 @@ class _SlidingUPState extends State<SlidingUP> {
               ),
             ),
             // defaultPanelState: PanelState.CLOSED,
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(18.0),
                 topRight: Radius.circular(18.0)),
             onPanelSlide: (double pos) => setState(() {
@@ -222,14 +221,14 @@ class _SlidingUPState extends State<SlidingUP> {
             right: 20.0,
             bottom: _fabHeight,
             child: FloatingActionButton(
-              child: Icon(
-                Icons.gps_fixed,
-                color: Theme.of(context).primaryColor,
-              ),
               onPressed: () {
                 _getCurrentLocation();
               },
               backgroundColor: Colors.white,
+              child: Icon(
+                Icons.gps_fixed,
+                color: Theme.of(context).primaryColor,
+              ),
             ),
           ),
 
@@ -249,17 +248,17 @@ class _SlidingUPState extends State<SlidingUP> {
             top: 52.0,
             child: Container(
               padding: const EdgeInsets.fromLTRB(24.0, 18.0, 24.0, 18.0),
-              child: Text(
-                "SlidingUpPanel Example",
-                style: TextStyle(fontWeight: FontWeight.w500),
-              ),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24.0),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                       color: Color.fromRGBO(0, 0, 0, .25), blurRadius: 16.0)
                 ],
+              ),
+              child: const Text(
+                "SlidingUpPanel Example",
+                style: TextStyle(fontWeight: FontWeight.w500),
               ),
             ),
           ),
@@ -274,29 +273,29 @@ class _SlidingUPState extends State<SlidingUP> {
         child: Container(
           child: Stepper(
             type: StepperType.horizontal,
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             currentStep: _currentStep,
             onStepTapped: (step) => tapped(step),
             onStepContinue: continued,
             onStepCancel: cancel,
             steps: <Step>[
               Step(
-                title: new Text('Area of Interest'),
+                title: const Text('Area of Interest'),
                 // subtitle: Text('Polygonal Area'),
                 content: Column(
                   children: <Widget>[
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           labelText: 'Coordinates Point',
                           suffixIcon: Icon(Icons.map_outlined)),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           labelText: 'Address',
                           suffixIcon: Icon(Icons.maps_home_work)),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           labelText: 'Wide Area',
                           suffixIcon: Icon(Icons.square_foot)),
                     ),
@@ -307,28 +306,28 @@ class _SlidingUPState extends State<SlidingUP> {
                     _currentStep >= 0 ? StepState.complete : StepState.disabled,
               ),
               Step(
-                title: new Text('Characteristic'),
+                title: const Text('Characteristic'),
                 content: Column(
                   children: <Widget>[
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Name',
                       ),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Land Use type'),
+                      decoration: const InputDecoration(labelText: 'Land Use type'),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Ownership'),
+                      decoration: const InputDecoration(labelText: 'Ownership'),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Status Area'),
+                      decoration: const InputDecoration(labelText: 'Status Area'),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Description'),
+                      decoration: const InputDecoration(labelText: 'Description'),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Photo'),
+                      decoration: const InputDecoration(labelText: 'Photo'),
                     ),
                   ],
                 ),
@@ -337,12 +336,12 @@ class _SlidingUPState extends State<SlidingUP> {
                     _currentStep >= 1 ? StepState.complete : StepState.disabled,
               ),
               Step(
-                title: new Text('Drought'),
+                title: const Text('Drought'),
                 // subtitle: Text('VHI & Rainfall'),
                 content: Column(
                   children: <Widget>[
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Mobile Number'),
+                      decoration: const InputDecoration(labelText: 'Mobile Number'),
                     ),
                   ],
                 ),
@@ -360,19 +359,19 @@ class _SlidingUPState extends State<SlidingUP> {
       children: <Widget>[
         Container(
           padding: const EdgeInsets.all(16.0),
-          child: Icon(
-            icon,
-            color: Colors.white,
-          ),
           decoration:
-              BoxDecoration(color: color, shape: BoxShape.circle, boxShadow: [
+              BoxDecoration(color: color, shape: BoxShape.circle, boxShadow: const [
             BoxShadow(
               color: Color.fromRGBO(0, 0, 0, 0.15),
               blurRadius: 8.0,
             )
           ]),
+          child: Icon(
+            icon,
+            color: Colors.white,
+          ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 12.0,
         ),
         Text(label),
@@ -398,7 +397,7 @@ class _SlidingUPState extends State<SlidingUP> {
       children: [
         TileLayer(
           urlTemplate: 'http://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}',
-          subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+          subdomains: const ['mt0', 'mt1', 'mt2', 'mt3'],
         ),
         PolygonLayer(polygons: polygons),
         DragMarkers(markers: polyEditor.edit()),
