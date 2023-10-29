@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:waterspring/theme.dart';
 
 class ListPage extends StatefulWidget {
@@ -14,7 +16,8 @@ class _ListPageState extends State<ListPage> {
   double currentPageValue = 0;
   PageController controller = PageController();
   bool isLoading = false;
-
+  late LatLng _current = LatLng(-8.183052, 115.120491);
+  final polygons = <Polygon>[];
   @override
   void initState() {
     super.initState();
@@ -48,7 +51,7 @@ class _ListPageState extends State<ListPage> {
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                   child: Text(
-                    'Get QR Code',
+                    'Find Your Field',
                     style: whiteTextStyle.copyWith(
                       fontSize: 24,
                       fontWeight: semiBold,
@@ -58,7 +61,7 @@ class _ListPageState extends State<ListPage> {
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                   child: Text(
-                    'Access Family Medical Record',
+                    'Easy Field Management',
                     style: whiteTextStyle.copyWith(
                       fontSize: 14,
                       fontWeight: regular,
@@ -76,7 +79,7 @@ class _ListPageState extends State<ListPage> {
                           controller: textController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Search name or nik...',
+                            labelText: 'Search name or field...',
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
                                 color: Color(0x00000000),
@@ -132,52 +135,32 @@ class _ListPageState extends State<ListPage> {
       );
     }
 
-    Widget riwayat() {
-      return Container(
-        child: const Text("Data"),
-      );
-    }
-
-    Widget empty() {
-      return Expanded(
-        child: isLoading
-            ? Center(
-                child: CircularProgressIndicator(
-                  color: primaryColor,
-                ),
-              )
-            : SizedBox(
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/image_empty_riwayat.png',
-                      width: 80,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'Belum ada Riwayat',
-                      style: primaryTextStyle.copyWith(
-                        fontSize: 16,
-                        fontWeight: semiBold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    Text(
-                      'Yuk Daftarkan Riwayat Periksamu',
-                      style: secondaryTextStyle.copyWith(
-                        fontSize: 12,
-                        fontWeight: regular,
-                      ),
-                    ),
-                  ],
-                ),
+    Widget _body() {
+      return FlutterMap(
+        options: MapOptions(
+          center: _current,
+          zoom: 13,
+          // interactiveFlags: InteractiveFlag.doubleTapZoom,
+        ),
+        children: [
+          TileLayer(
+            urlTemplate: 'http://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}',
+            subdomains: const ['mt0', 'mt1', 'mt2', 'mt3'],
+          ),
+          PolygonLayer(polygons: polygons),
+          MarkerLayer(
+            rotate: false,
+            anchorPos: AnchorPos.align(AnchorAlign.top),
+            markers: [
+              Marker(
+                point: _current,
+                builder: (ctx) => const Icon(Icons.pin, size: 60),
+                width: 60,
+                height: 60,
               ),
+            ],
+          )
+        ],
       );
     }
 
@@ -188,55 +171,13 @@ class _ListPageState extends State<ListPage> {
           right: 16,
         ),
         child: Container(
-          child: riwayat(),
+          child: _body(),
         ),
-        // child: Column(
-        //   children: [
-        //     Container(
-        //       child: riwayat(),
-        //     ),
-        //     Divider(
-        //       height: 24,
-        //       thickness: 1,
-        //       color: secondaryColor,
-        //     ),
-        //     Padding(
-        //       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
-        //       child: Row(
-        //         mainAxisSize: MainAxisSize.max,
-        //         children:  [
-        //           Text(
-        //             'Recent Views',
-        //             style: primaryTextStyle.copyWith(fontWeight: medium),
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //     ListView(
-        //       padding: EdgeInsets.zero,
-        //       primary: false,
-        //       shrinkWrap: true,
-        //       scrollDirection: Axis.vertical,
-        //       children: [
-        //         cardlog(1, 'dr. Handika Sucipta', '4 Maret 2022, 12:30 Wita', context),
-        //         cardlog(2, 'dr. Gita Buwana, Sp.Og', '1 Maret 2022, 12:30 Wita', context),
-        //         cardlog(3, 'Gede Jana Juna', '1 Februari 2022, 12:30 Wita', context),
-        //       ],
-        //     ),
-        //   ],
-        // ),
       );
     }
 
     return Scaffold(
       key: scaffoldKey,
-      // appBar: PreferredSize(
-      //   preferredSize: const Size.fromHeight(40),
-      //   child: AppBar(
-      //     backgroundColor: ColorDesign.primary,
-      //     title: const Text("Family QR"),
-      //   ),
-      // ),
       backgroundColor: backgorundColor,
       body: SingleChildScrollView(
         child: Column(

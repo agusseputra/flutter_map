@@ -29,7 +29,7 @@ class LuType {
 }
 
 class _AddPolyState extends State<AddPoly> {
-  final mapController = MapController();
+  // final mapController = MapController();
   final double _initFabHeight = 120.0;
   double _fabHeight = 0;
   double _panelHeightOpen = 0;
@@ -38,8 +38,8 @@ class _AddPolyState extends State<AddPoly> {
   late String latitude;
   late String longitude;
   late PolyEditor polyEditor;
-  late LatLng _current = LatLng(13.535932, 100.939911);
-  late LatLng _selected = LatLng(13.535932, 100.939911);
+  late LatLng _current = LatLng(-8.183052, 115.120491);
+  late LatLng _selected = LatLng(-8.183052, 115.120491);
   int _access = 0;
   TextEditingController _currentLoc = TextEditingController();
   TextEditingController _currentAddress = TextEditingController();
@@ -68,7 +68,8 @@ class _AddPolyState extends State<AddPoly> {
   final polygons = <Polygon>[];
   // List<String> _wlevel = <String>['A', 'B', 'C'];
   final testPolygon = Polygon(
-      color: Colors.deepOrange,
+      color: Colors.deepOrange.withOpacity(0.2),
+      isFilled: true,
       points: [],
       borderStrokeWidth: 2,
       borderColor: secondaryColor);
@@ -329,18 +330,31 @@ class _AddPolyState extends State<AddPoly> {
             Positioned(
               top: 20.0,
               child: Container(
-                padding: const EdgeInsets.fromLTRB(24.0, 18.0, 24.0, 18.0),
-                child: Text(
-                  "SlidingUpPanel Example",
-                  style: TextStyle(fontWeight: FontWeight.w500),
-                ),
+                height: 50,
+                width: 250,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(24.0),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color.fromRGBO(0, 0, 0, .25), blurRadius: 16.0)
-                  ],
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 5,
+                    horizontal: 10,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: "Search Your Location",
+                            prefixIcon: Icon(Icons.search),
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -552,13 +566,21 @@ class _AddPolyState extends State<AddPoly> {
                     _currentStep >= 1 ? StepState.complete : StepState.disabled,
               ),
               Step(
-                title: const Text('Drought'),
+                title: const Text('VCI'),
                 // subtitle: Text('VHI & Rainfall'),
                 content: Column(
                   children: <Widget>[
-                    TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'Mobile Number'),
+                    Container(
+                      padding: EdgeInsets.all(4),
+                      child: Image.asset('assets/images/rainfall.png'),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(4),
+                      child: Image.asset('assets/images/vci.png'),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(4),
+                      child: Image.asset('assets/images/msi.png'),
                     ),
                   ],
                 ),

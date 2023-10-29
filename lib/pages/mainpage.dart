@@ -3,10 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:waterspring/pages/addPoly.dart';
 import 'package:waterspring/pages/home.dart';
-import 'package:waterspring/pages/listdata.dart';
-import 'package:waterspring/pages/polygon.dart';
+import 'package:waterspring/pages/listpoly.dart';
+import 'package:waterspring/pages/samplepopupmarker.dart';
 import 'package:waterspring/pages/slidingUP.dart';
-import 'package:waterspring/pages/testLocation.dart';
+import 'package:waterspring/pages/weather.dart';
 import 'package:waterspring/providers/pageprovider.dart';
 import 'package:waterspring/theme.dart';
 
@@ -59,15 +59,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
           );
         },
-        backgroundColor: primaryDarkColor,
-        child: isDokter
-            ? SvgPicture.asset(
-                'assets/icons/scan.svg',
-                width: 40,
-                color: whiteColor,
-              )
-            : SvgPicture.asset('assets/icons/scan.svg',
-                width: 26, color: whiteColor),
+        child: Icon(Icons.location_on),
       );
     }
 
@@ -104,13 +96,7 @@ class _MainScreenState extends State<MainScreen> {
                       top: 10,
                       bottom: 10,
                     ),
-                    child: SvgPicture.asset(
-                      'assets/icons/icon_home.svg',
-                      width: 21,
-                      color: pageProvider.currentIndex == 0
-                          ? primaryColor
-                          : const Color(0xFF728196),
-                    ),
+                    child: Icon(Icons.home),
                   ),
                   label: 'Beranda',
                 ),
@@ -120,15 +106,9 @@ class _MainScreenState extends State<MainScreen> {
                       top: 10,
                       bottom: 10,
                     ),
-                    child: SvgPicture.asset(
-                      'assets/icons/family.svg',
-                      width: 20,
-                      color: pageProvider.currentIndex == 1
-                          ? primaryColor
-                          : const Color(0xFF728196),
-                    ),
+                    child: Icon(Icons.map_sharp),
                   ),
-                  label: 'Family',
+                  label: 'Maps',
                 ),
                 const BottomNavigationBarItem(
                   icon: SizedBox(),
@@ -140,15 +120,9 @@ class _MainScreenState extends State<MainScreen> {
                       top: 10,
                       bottom: 10,
                     ),
-                    child: SvgPicture.asset(
-                      'assets/icons/control.svg',
-                      width: 22,
-                      color: pageProvider.currentIndex == 3
-                          ? primaryColor
-                          : const Color(0xFF728196),
-                    ),
+                    child: Icon(Icons.radar),
                   ),
-                  label: 'Access',
+                  label: 'Weather',
                 ),
                 BottomNavigationBarItem(
                   icon: Container(
@@ -182,11 +156,11 @@ class _MainScreenState extends State<MainScreen> {
         case 0:
           return const HomePage();
         case 1:
-          return const ListPage();
+          return const ListPolyPage();
         case 3:
-          return const PolygoneScreen();
+          return const WeatherApp();
         case 4:
-          return const SlidingUP();
+          return const PopupPage();
         default:
           return const SlidingUP();
       }

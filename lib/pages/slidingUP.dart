@@ -247,18 +247,37 @@ class _SlidingUPState extends State<SlidingUP> {
           Positioned(
             top: 52.0,
             child: Container(
-              padding: const EdgeInsets.fromLTRB(24.0, 18.0, 24.0, 18.0),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(24.0),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, .25), blurRadius: 16.0)
-                ],
+                borderRadius: BorderRadius.circular(100),
               ),
-              child: const Text(
-                "SlidingUpPanel Example",
-                style: TextStyle(fontWeight: FontWeight.w500),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 10,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          hintText: "Search Your Looking For",
+                          prefixIcon: Icon(Icons.search),
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    const CircleAvatar(
+                      radius: 22,
+                      backgroundColor: Colors.lightBlueAccent,
+                      child: Icon(
+                        Icons.sort_by_alpha_sharp,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -315,16 +334,19 @@ class _SlidingUPState extends State<SlidingUP> {
                       ),
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(labelText: 'Land Use type'),
+                      decoration:
+                          const InputDecoration(labelText: 'Land Use type'),
                     ),
                     TextFormField(
                       decoration: const InputDecoration(labelText: 'Ownership'),
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(labelText: 'Status Area'),
+                      decoration:
+                          const InputDecoration(labelText: 'Status Area'),
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(labelText: 'Description'),
+                      decoration:
+                          const InputDecoration(labelText: 'Description'),
                     ),
                     TextFormField(
                       decoration: const InputDecoration(labelText: 'Photo'),
@@ -341,7 +363,8 @@ class _SlidingUPState extends State<SlidingUP> {
                 content: Column(
                   children: <Widget>[
                     TextFormField(
-                      decoration: const InputDecoration(labelText: 'Mobile Number'),
+                      decoration:
+                          const InputDecoration(labelText: 'Mobile Number'),
                     ),
                   ],
                 ),
@@ -359,13 +382,15 @@ class _SlidingUPState extends State<SlidingUP> {
       children: <Widget>[
         Container(
           padding: const EdgeInsets.all(16.0),
-          decoration:
-              BoxDecoration(color: color, shape: BoxShape.circle, boxShadow: const [
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.15),
-              blurRadius: 8.0,
-            )
-          ]),
+          decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+              boxShadow: const [
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.15),
+                  blurRadius: 8.0,
+                )
+              ]),
           child: Icon(
             icon,
             color: Colors.white,

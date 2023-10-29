@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 double defaultMargin = 30.0;
 
-Color primaryColor = const Color(0xFF691BFF);
-Color primaryDarkColor = const Color(0xFF4813AB);
+Color primaryColor = Colors.indigoAccent.shade700;
+Color primaryDarkColor = Colors.blueAccent;
 Color secondaryColor = const Color(0XFF39D2C0);
 Color tertiaryColor = const Color(0xFFEE8B60);
 Color primaryTextColor = const Color(0xFF29313E);

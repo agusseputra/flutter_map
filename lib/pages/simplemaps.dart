@@ -1,50 +1,64 @@
-import 'dart:async';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_map/flutter_map.dart';
+// import 'package:latlong2/latlong.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+// class WMSLayerPage extends StatelessWidget {
+//   static const String route = '/wms_layer';
 
-class Mapsimple extends StatefulWidget {
-  const Mapsimple({super.key});
+//   const WMSLayerPage({Key? key}) : super(key: key);
 
-  @override
-  State<Mapsimple> createState() => _MapsimpleState();
-}
-
-class _MapsimpleState extends State<Mapsimple> {
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
-
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
-  static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: GoogleMap(
-        mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('To the lake!'),
-        icon: const Icon(Icons.directions_boat),
-      ),
-    );
-  }
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: const Text('WMS Layer')),
+//       // drawer: buildDrawer(context, route),
+//       body: Padding(
+//         padding: const EdgeInsets.all(8),
+//         child: Column(
+//           children: [
+//             const Padding(
+//               padding: EdgeInsets.only(top: 8, bottom: 8),
+//               child: Text('This is a map that is showing (42.58, 12.43).'),
+//             ),
+//             Flexible(
+//               child: FlutterMap(
+//                 options: MapOptions(
+//                   center: LatLng(-8.183052, 115.120491),
+//                   zoom: 6,
+//                 ),
+//                 children: [
+//                   TileLayer(
+//                     wmsOptions: WMSTileLayerOptions(
+//                       baseUrl: 'https://{s}.s2maps-tiles.eu/wms/?',
+//                       layers: const ['s2cloudless-2021_3857'],
+//                     ),
+//                     subdomains: const ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
+//                     userAgentPackageName: 'dev.fleaflet.flutter_map.example',
+//                   ),
+//                   RichAttributionWidget(
+//                     popupInitialDisplayDuration: const Duration(seconds: 5),
+//                     attributions: [
+//                       TextSourceAttribution(
+//                         'Sentinel-2 cloudless - https://s2maps.eu by EOX IT Services GmbH',
+//                         onTap: () => launchUrl(Uri.parse('https://s2maps.eu')),
+//                       ),
+//                       const TextSourceAttribution(
+//                         'Modified Copernicus Sentinel data 2021',
+//                       ),
+//                       TextSourceAttribution(
+//                         'Rendering: EOX::Maps',
+//                         onTap: () =>
+//                             launchUrl(Uri.parse('https://maps.eox.at/')),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
