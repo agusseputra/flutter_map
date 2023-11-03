@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
@@ -10,6 +11,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:waterspring/services/function.dart';
 import 'package:waterspring/theme.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddPoly extends StatefulWidget {
   const AddPoly({super.key});
@@ -30,6 +32,7 @@ class LuType {
 
 class _AddPolyState extends State<AddPoly> {
   // final mapController = MapController();
+  final ImagePicker _picker = ImagePicker();
   final double _initFabHeight = 120.0;
   double _fabHeight = 0;
   double _panelHeightOpen = 0;
@@ -76,6 +79,8 @@ class _AddPolyState extends State<AddPoly> {
   int _currentStep = 0;
   StepperType stepperType = StepperType.vertical;
   PanelController _pc = new PanelController();
+  late String _imagePath = "";
+  late String _imageURL = "";
   @override
   void initState() {
     super.initState();
@@ -521,9 +526,85 @@ class _AddPolyState extends State<AddPoly> {
                               decoration: const InputDecoration(
                                   labelText: 'Description'),
                             ),
-                            TextFormField(
-                              decoration:
-                                  const InputDecoration(labelText: 'Photo'),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  bottom: 10, top: 10, left: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(Icons.image),
+                                  Flexible(
+                                      child: _imagePath != ''
+                                          ? GestureDetector(
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                child: Image.file(
+                                                  File(_imagePath),
+                                                  fit: BoxFit.fitWidth,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      5,
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                getImage(ImageSource.gallery);
+                                              })
+                                          : _imageURL != ''
+                                              ? GestureDetector(
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    child: Image.network(
+                                                      _imageURL,
+                                                      fit: BoxFit.fitWidth,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height /
+                                                              5,
+                                                    ),
+                                                  ),
+                                                  onTap: () {
+                                                    getImage(
+                                                        ImageSource.gallery);
+                                                  })
+                                              : GestureDetector(
+                                                  onTap: () {
+                                                    getImage(
+                                                        ImageSource.gallery);
+                                                  },
+                                                  child: Container(
+                                                    height: 100,
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  left: 25),
+                                                        ),
+                                                        Text("Take Picture")
+                                                      ],
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                        border: Border(
+                                                            bottom: BorderSide(
+                                                                color: Colors
+                                                                    .greenAccent,
+                                                                width: 1))),
+                                                  ),
+                                                ))
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -673,5 +754,14 @@ class _AddPolyState extends State<AddPoly> {
 
   cancel() {
     _currentStep > 0 ? setState(() => _currentStep -= 1) : null;
+  }
+
+  Future getImage(ImageSource media) async {
+    var img = await _picker.pickImage(source: media);
+    //final pickedImageFile = File(img!.path);
+    setState(() {
+      _imagePath = img!.path;
+      print(_imagePath);
+    });
   }
 }
